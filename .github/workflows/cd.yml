@@ -54,5 +54,5 @@ jobs:
         
     - 
       run: 
-       docker push wojiuchigua/umami/${{ matrix.db-type }}-${{ env.RELEASE_VERSION }}, wojiuchigua/umami/${{ matrix.db-type }}-latest
+       docker push wojiuchigua/umami/${{ matrix.db-type }}-latest
 
