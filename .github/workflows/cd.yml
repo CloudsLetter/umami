@@ -1,6 +1,6 @@
 name: Create docker images
 
-on: [create]
+on: [push]
 
 jobs:
 
