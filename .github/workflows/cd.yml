@@ -48,7 +48,6 @@ jobs:
         push: true
         context: .
         file: ./Dockerfile
-        platforms: linux/amd64,linux/arm64
+        platforms: linux/amd64
         tags:  docker.io/wojiuchigua/umami/${{ matrix.db-type }}-${{ env.RELEASE_VERSION }}, wojiuchigua/umami/${{ matrix.db-type }}-latest
         buildArgs: DATABASE_TYPE=${{ matrix.db-type }}
-
