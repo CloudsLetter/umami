@@ -9,7 +9,7 @@ ENV DATABASE_TYPE=$DATABASE_TYPE
 
 WORKDIR /build
 
-RUN yarn config set --home enableTelemetry 0
+RUN apk update && apk add openssl &&yarn config set --home enableTelemetry 0
 COPY package.json yarn.lock /build/
 
 # Install only the production dependencies

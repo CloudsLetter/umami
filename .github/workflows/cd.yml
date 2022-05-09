@@ -1,12 +1,11 @@
 name: Create docker images
 
-on: [create]
+on: [push]
 
 jobs:
 
   build:
     name: Build, push, and deploy
-    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -18,13 +17,38 @@ jobs:
 
     - name: Set env
       run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-
-    - uses: mr-smithers-excellent/docker-build-push@v5
-      name: Build & push Docker image for ${{ matrix.db-type }}
+    -
+      name: Checkout
+      uses: actions/checkout@v2
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=today::$(date +'%Y-%m-%d')"
+    -
+      name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    -
+      name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1
+    -
+      name: Available platforms
+      run: echo ${{ steps.buildx.outputs.platforms }}
+    -
+      name: Login to DockerHub
+      uses: docker/login-action@v1
       with:
-        image: umami
-        tags: ${{ matrix.db-type }}-${{ env.RELEASE_VERSION }}, ${{ matrix.db-type }}-latest
-        buildArgs: DATABASE_TYPE=${{ matrix.db-type }}
-        registry: wojiuchigua/umami
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
+
+
+    -
+      name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        context: .
+        file: ./Dockerfile
+        platforms: linux/amd64,linux/arm64
+        tags:  docker.io/wojiuchigua/umami/${{ matrix.db-type }}-${{ env.RELEASE_VERSION }}, wojiuchigua/umami/${{ matrix.db-type }}-latest
+        buildArgs: DATABASE_TYPE=${{ matrix.db-type }}
+
