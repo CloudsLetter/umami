@@ -54,5 +54,5 @@ jobs:
         
     - 
       run: 
-       docker push ${{ secrets.REGISTRY_USERNAME }}/umami/${{ matrix.db-type }}-latest
+       docker push ${{ secrets.REGISTRY_USERNAME }}/umami:${{ matrix.db-type }}-latest
 
