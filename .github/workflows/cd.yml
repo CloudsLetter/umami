@@ -40,12 +40,7 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
-    - uses: mr-smithers-excellent/docker-build-push@v5
-      name: Build & push Docker image for ${{ matrix.db-type }}
-      with:
-        image: umami
-        buildArgs: DATABASE_TYPE=${{ matrix.db-type }}
-        registry: docker.io/wojiuchigua/umami
+
     -
       name: Build and push
       uses: docker/build-push-action@v3
@@ -54,6 +49,6 @@ jobs:
         context: .
         file: ./Dockerfile
         platforms: linux/amd64,linux/arm64
-        tags:  wojiuchigua/umami/${{ matrix.db-type }}-${{ env.RELEASE_VERSION }}, wojiuchigua/umami/${{ matrix.db-type }}-latest
+        tags:  docker.io/wojiuchigua/umami/${{ matrix.db-type }}-${{ env.RELEASE_VERSION }}, wojiuchigua/umami/${{ matrix.db-type }}-latest
         buildArgs: DATABASE_TYPE=${{ matrix.db-type }}
 
