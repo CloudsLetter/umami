@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
-import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps';
+import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps-fix-china';
 import classNames from 'classnames';
 import { colord } from 'colord';
 import useTheme from 'hooks/useTheme';
