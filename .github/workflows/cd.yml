@@ -49,7 +49,7 @@ jobs:
         context: .
         file: ./Dockerfile
         platforms: linux/amd64
-        tags:  wojiuchigua/umami/${{ matrix.db-type }}-${{ env.RELEASE_VERSION }}, wojiuchigua/umami/${{ matrix.db-type }}-latest
+        tags:  wojiuchigua/umami/${{ matrix.db-type }}-latest
         build-args: DATABASE_TYPE=${{ matrix.db-type }}
         
     - 
