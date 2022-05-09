@@ -49,7 +49,7 @@ jobs:
         context: .
         file: ./Dockerfile
         platforms: linux/amd64
-        tags: ${{ secrets.REGISTRY_USERNAME }}/umami/${{ matrix.db-type }}-latest
+        tags: ${{ secrets.REGISTRY_USERNAME }}/umami:${{ matrix.db-type }}-latest
         build-args: DATABASE_TYPE=${{ matrix.db-type }}
         
     - 
