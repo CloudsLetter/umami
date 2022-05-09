@@ -1,5 +1,5 @@
 # Build image
-FROM node:12.22-alpine AS build
+FROM node:lts AS build
 ARG BASE_PATH
 ARG DATABASE_TYPE
 
