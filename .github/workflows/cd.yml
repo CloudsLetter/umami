@@ -48,7 +48,7 @@ jobs:
         load: true
         context: .
         file: ./Dockerfile
-        platforms: linux/amd64
+        platforms: linux/amd64,linux/arm64
         tags: ${{ secrets.REGISTRY_USERNAME }}/umami:${{ matrix.db-type }}-latest
         build-args: DATABASE_TYPE=${{ matrix.db-type }}
         
