@@ -9,17 +9,17 @@ ENV DATABASE_TYPE=$DATABASE_TYPE
 
 WORKDIR /build
 
-RUN apk update && yarn install --network-timeout 1000000000 && apk add openssl &&yarn config set --home enableTelemetry 0
+RUN apk update  && apk add openssl &&yarn config set --home enableTelemetry 0 
 COPY package.json yarn.lock /build/
 
 # Install only the production dependencies
-RUN yarn install --production --frozen-lockfile
+RUN yarn install --production --frozen-lockfile --network-timeout 1000000000
 
 # Cache these modules for production
 RUN cp -R node_modules/ prod_node_modules/
 
 # Install development dependencies
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile --network-timeout 1000000000
 
 COPY . /build
 RUN yarn next telemetry disable
